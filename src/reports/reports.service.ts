@@ -11,7 +11,7 @@ export class ReportsService {
     return createReportDto;
   }
 
-  updateReport() {
-    return 'Report Updated.';
+  updateReport(id: string) {
+    return `Report Updated on ${id}.`;
   }
 }
