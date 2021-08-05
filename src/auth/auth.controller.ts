@@ -5,12 +5,12 @@ import { AuthService } from './auth.service';
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
-  @Post()
+  @Post('/signup')
   signUp(@Body() authCredentials: AuthCredentials) {
     return this.authService.signUp(authCredentials);
   }
 
-  @Post()
+  @Post('signin')
   signIn(@Body() authCredentials: AuthCredentials) {
     return this.authService.signIn(authCredentials);
   }
