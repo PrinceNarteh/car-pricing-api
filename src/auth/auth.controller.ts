@@ -1,6 +1,16 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { AuthCredentialsDto } from '../auth/dtos/auth-credentials.dto';
 import { AuthService } from './auth.service';
+import { UpdateUserDto } from './dtos/update-user.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -14,5 +24,26 @@ export class AuthController {
   @Post('signin')
   signIn(@Body() authCredentials: AuthCredentialsDto) {
     return this.authService.signIn(authCredentials);
+  }
+
+  @Get('/:id')
+  findUser(@Param('id') id: string) {
+    const parsedId = parseInt(id);
+    return this.authService.findOne(parsedId);
+  }
+
+  @Get()
+  findAllUsers(@Query('email') email: string) {
+    return this.authService.find(email);
+  }
+
+  @Patch('/:id')
+  updateUser(@Param('id') id: string, @Body() attrs: UpdateUserDto) {
+    return this.authService.update(parseInt(id), attrs);
+  }
+
+  @Delete('/id')
+  removeUser(@Param('id') id: string) {
+    return this.authService.remove(parseInt(id));
   }
 }
