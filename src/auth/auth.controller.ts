@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
   Query,
+  Session,
 } from '@nestjs/common';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { UserDto } from 'src/interceptors/user.dto';
@@ -23,13 +24,23 @@ export class AuthController {
     private usersService: UsersService,
   ) {}
   @Post('/signup')
-  signUp(@Body() authCredentials: AuthCredentialsDto) {
-    return this.authService.signUp(authCredentials);
+  async signUp(
+    @Body() authCredentials: AuthCredentialsDto,
+    @Session() session: any,
+  ) {
+    const user = await this.authService.signUp(authCredentials);
+    session.userId = user.id;
+    return user;
   }
 
   @Post('signin')
-  signIn(@Body() authCredentials: AuthCredentialsDto) {
-    return this.authService.signIn(authCredentials);
+  async signIn(
+    @Body() authCredentials: AuthCredentialsDto,
+    @Session() session: any,
+  ) {
+    const user = await this.authService.signIn(authCredentials);
+    session.userId = user.id;
+    return user;
   }
 
   @Get('/:id')
