@@ -16,6 +16,13 @@ Content-Type: application/json
   "password": "password"
 }
 
+### Get the currently signed in user
+GET http://localhost:3000/auth/whoami HTTP/1.1
+
+### Get the currently signed in user
+POST http://localhost:3000/auth/signout HTTP/1.1
+
+
 ### Get User
 GET http://localhost:3000/auth/1 HTTP/1.1
 

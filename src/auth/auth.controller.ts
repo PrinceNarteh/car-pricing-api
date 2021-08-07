@@ -23,6 +23,12 @@ export class AuthController {
     private authService: AuthService,
     private usersService: UsersService,
   ) {}
+
+  @Get('/whoami')
+  whoAmI(@Session() session: any) {
+    return this.usersService.findOne(session.userId);
+  }
+
   @Post('/signup')
   async signUp(
     @Body() authCredentials: AuthCredentialsDto,
@@ -41,6 +47,11 @@ export class AuthController {
     const user = await this.authService.signIn(authCredentials);
     session.userId = user.id;
     return user;
+  }
+
+  @Post('/signout')
+  signOut(@Session() session: any) {
+    session.userId = null;
   }
 
   @Get('/:id')
