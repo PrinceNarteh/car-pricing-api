@@ -19,7 +19,7 @@ Content-Type: application/json
 ### Get the currently signed in user
 GET http://localhost:3000/auth/whoami HTTP/1.1
 
-### Get the currently signed in user
+### Signout
 POST http://localhost:3000/auth/signout HTTP/1.1
 
 
